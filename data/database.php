@@ -1,9 +1,11 @@
 <?php 
 
     define('DB_HOST', getenv('DB_HOST'));
-    define('DB_USER', getenv('DB_USER'));
-    define('DB_PASS', getenv('DB_PASS'));
-    define('DB_NAME', getenv('DB_NAME'));
+    define('DB_USER', getenv('DB_USERNAME')); // Changed from DB_USER
+    define('DB_PASS', getenv('DB_PASSWORD')); // Changed from DB_PASS
+    define('DB_NAME', getenv('DB_DATABASE')); // Changed from DB_NAME
+
+    // ... rest of your setup stays exactly the same
 
     // set up the dsn, set up the configurations, start connection
 

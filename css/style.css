@@ -1,0 +1,523 @@
+/* 
+  Lecturer Review System Styles
+  Theme: Hawassa University (Green, Gold/Yellow, White)
+  Author: Student Project Team
+*/
+
+:root {
+  /* Color Palette - Light (Default) */
+  --primary-blue: #005ba1;
+  --light-blue: #007bff;
+  --accent-gold: #fbc02d;
+  --accent-yellow: #fff59d;
+  --bg-color: #f4f8fb;
+  --card-bg: #ffffff;
+  --text-dark: #333333;
+  --text-light: #666666;
+  --border-color: #e0e0e0;
+  
+  /* Typography */
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
+  /* Shadows & Transitions */
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 8px rgba(0,0,0,0.1);
+  --shadow-hover: 0 8px 16px rgba(0,0,0,0.15);
+  --transition-fast: 0.3s ease-in-out; /* Slightly longer for smoother theme toggle */
+}
+
+[data-theme="dark"] {
+  /* Color Palette - Dark Mode */
+  --primary-blue: #3399ff;
+  --light-blue: #6ea8fe;
+  --accent-gold: #fbc02d;
+  --accent-yellow: #fff59d;
+  --bg-color: #121212;
+  --card-bg: #1e1e1e;
+  --text-dark: #e0e0e0;
+  --text-light: #a0a0a0;
+  --border-color: #333333;
+  
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 8px rgba(0,0,0,0.4);
+  --shadow-hover: 0 8px 16px rgba(0,0,0,0.5);
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-dark);
+  line-height: 1.6;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+  animation: pageFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes pageFadeIn {
+  0% { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+/* Navigation */
+.navbar {
+  background-color: var(--primary-blue);
+  color: white;
+  padding: 1rem 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-md);
+}
+
+.nav-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-brand span {
+  color: white;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: white;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background-color var(--transition-fast);
+}
+
+.nav-links a:hover, .nav-links a.active {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Dark Mode Toggle - Pill Slider */
+.theme-toggle-btn {
+  position: relative;
+  width: 52px;
+  height: 26px;
+  border-radius: 50px;
+  background: rgba(255,255,255,0.2);
+  border: 2px solid rgba(255,255,255,0.35);
+  cursor: pointer;
+  margin-left: 16px;
+  flex-shrink: 0;
+  transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  padding: 0;
+  overflow: visible;
+}
+
+/* Sun icon (light mode label) using ::before */
+.theme-toggle-btn::before {
+  content: '☀️';
+  position: absolute;
+  left: 5px;
+  font-size: 10px;
+  line-height: 1;
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+
+/* Moon icon (dark mode label) using ::after */
+.theme-toggle-btn::after {
+  content: '🌙';
+  position: absolute;
+  right: 5px;
+  font-size: 10px;
+  line-height: 1;
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+
+/* The sliding thumb */
+.theme-toggle-thumb {
+  position: absolute;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.35s ease;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+/* Dark active state - thumb slides right */
+.theme-toggle-btn.dark-active {
+  background: rgba(30, 60, 120, 0.55);
+  border-color: rgba(110, 168, 254, 0.5);
+  box-shadow: 0 0 10px rgba(110, 168, 254, 0.3);
+}
+
+.theme-toggle-btn.dark-active .theme-toggle-thumb {
+  left: 28px;
+  background: #c8d8ff;
+}
+
+.theme-toggle-btn:hover {
+  box-shadow: 0 0 12px rgba(255,255,255,0.35);
+  border-color: rgba(255,255,255,0.55);
+}
+
+.theme-toggle-btn.dark-active:hover {
+  box-shadow: 0 0 14px rgba(110, 168, 254, 0.5);
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: var(--accent-gold);
+  color: var(--primary-blue);
+}
+
+.btn-primary:hover {
+  background-color: #f9a825;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(251, 192, 45, 0.3);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 2px solid var(--accent-gold);
+  color: var(--accent-gold);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(251, 192, 45, 0.1);
+}
+
+.btn-blue {
+  background-color: var(--primary-blue);
+  color: white;
+}
+
+.btn-blue:hover {
+  background-color: #004b87;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 91, 161, 0.3);
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  background: linear-gradient(135deg, rgba(0, 91, 161, 0.88) 0%, rgba(0, 75, 135, 0.72) 100%), url('../images/lecturers.jpg') center/cover no-repeat;
+  color: white;
+  text-align: center;
+  padding: 120px 20px;
+  overflow: hidden;
+  box-shadow: inset 0 -10px 20px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle, rgba(251, 192, 45, 0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero h1 {
+  font-size: 3.4rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 20px;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+  animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  font-weight: 400;
+  max-width: 650px;
+  margin: 0 auto 35px;
+  color: rgba(255, 255, 255, 0.95);
+  line-height: 1.7;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+}
+
+@keyframes slideUp {
+  0% { opacity: 0; transform: translateY(25px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Main Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.section-title {
+  text-align: center;
+  color: var(--primary-blue);
+  margin-bottom: 40px;
+  font-size: 2rem;
+  position: relative;
+}
+
+
+
+/* Grid Layouts */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+/* Cards */
+.card {
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  padding: 25px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  border: 1px solid var(--border-color);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  border-color: var(--light-blue);
+}
+
+/* Lecturer Card Specific */
+.lecturer-card {
+  text-align: center;
+}
+
+.lecturer-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 15px;
+  border: 3px solid var(--light-blue);
+}
+
+.lecturer-name {
+  color: var(--primary-blue);
+  margin-bottom: 5px;
+}
+
+.lecturer-dept {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.lecturer-rating {
+  color: var(--accent-gold);
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.lecturer-bio {
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+  color: var(--text-dark);
+}
+
+/* Filter Section */
+.filter-bar {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+}
+
+.filter-bar input, .filter-bar select {
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  flex: 1;
+  min-width: 200px;
+  font-family: inherit;
+}
+
+.filter-bar input:focus, .filter-bar select:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+}
+
+
+/* Thank you page */
+.thank-you-container {
+  text-align: center;
+  padding: 60px 20px;
+  max-width: 600px;
+  margin: 40px auto;
+}
+
+.check-icon {
+  font-size: 5rem;
+  color: var(--light-blue);
+  margin-bottom: 20px;
+  animation: scaleIn 0.5s ease-out;
+}
+
+@keyframes scaleIn {
+  0% { transform: scale(0); }
+  80% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* Footer */
+footer {
+  background-color: var(--text-dark);
+  color: white;
+  text-align: center;
+  padding: 30px 20px;
+  margin-top: 40px;
+}
+
+footer p {
+  margin-bottom: 10px;
+  color: #bbb;
+}
+
+/* Spinner Animation */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 91, 161, 0.1);
+  border-left-color: var(--primary-blue);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Reusable Back Button Component */
+.back-btn-container {
+  margin: 20px 0 10px 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--card-bg);
+  color: var(--primary-blue);
+  border: 1px solid var(--border-color);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+  font-size: 0.9rem;
+}
+
+.back-btn:hover {
+  background-color: rgba(0, 91, 161, 0.05);
+  color: var(--light-blue);
+  border-color: var(--light-blue);
+  transform: translateX(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.back-btn:active {
+  transform: scale(0.98);
+}
+
+.back-btn .arrow {
+  transition: transform var(--transition-fast);
+}
+
+.back-btn:hover .arrow {
+  transform: translateX(-2px);
+}
+
+[data-theme="dark"] .back-btn:hover {
+  background-color: rgba(110, 168, 254, 0.1);
+}
+
+/* Navigation Brand Logo */
+.logo-btn-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.logo-btn-link:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+.logo-btn-img {
+  height: 36px;
+  width: auto;
+  border-radius: 4px;
+  object-fit: contain;
+  display: block;
+}
+
+

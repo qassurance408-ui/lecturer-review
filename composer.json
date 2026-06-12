@@ -1,0 +1,7 @@
+{
+    "name": "qa/lecturer-review",
+    "description": "Lecturer review system",
+    "require": {
+        "php": ">=8.2"
+    }
+}
